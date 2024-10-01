@@ -4,14 +4,6 @@ Checkstyle config for all JAVA projects.
 
 ## Usage
 
-Add this repository as a submodule of your main project by creating a `.gitmodules` file:
-```
-[submodule "checkstyle-config"]
-	path = checkstyle-config
-	url = https://github.com/aboutbits/java-checkstyle-config
-	branch = main
-```
-
 Add the `maven-checkstyle-plugin` to your `pom.xml`:
 ```xml
 <plugin>
@@ -19,8 +11,8 @@ Add the `maven-checkstyle-plugin` to your `pom.xml`:
     <artifactId>maven-checkstyle-plugin</artifactId>
     <version>3.5.0</version>
     <configuration>
-        <configLocation>checkstyle-config/checkstyle.xml</configLocation>
-        <suppressionsLocation>checkstyle-config/checkstyle-suppressions.xml</suppressionsLocation>
+        <configLocation>checkstyle.xml</configLocation>
+        <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
         <includeTestSourceDirectory>true</includeTestSourceDirectory>
         <consoleOutput>true</consoleOutput>
         <failsOnError>true</failsOnError>
@@ -41,21 +33,20 @@ Add the `maven-checkstyle-plugin` to your `pom.xml`:
             <artifactId>checkstyle</artifactId>
             <version>10.18.1</version>
         </dependency>
+        <dependency>
+            <groupId>it.aboutbits</groupId>
+            <artifactId>java-checkstyle-config</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 </plugin>
 ```
 
-For use with github-actions, you will also have to tell `actions/checkout` to also recurse submodules:
-```yaml
-- uses: actions/checkout@v4
-  with:
-    submodules: 'true'
-```
-
 **Configure your IDE:**  
-Go to `Settings` then search for "checkstyle".  
-Add a new checkstyle configuration and select the `checkstyle-config/checkstyle.xml` file.  
-Set the property `org.checkstyle.sun.suppressionfilter.config` to `checkstyle-config/checkstyle-suppressions.xml`
+First you need to run `mvn verify` once.
+In your IDE go to `Settings` then search for "checkstyle".  
+Add a new checkstyle configuration and select the `target/checkstyle-checker.xml` file.  
+Set the property `org.checkstyle.sun.suppressionfilter.config` to `checkstyle-suppressions.xml`
 
 ## Information
 
