@@ -194,7 +194,10 @@
         <!-- See https://checkstyle.org/config_misc.html -->
         <module name="ArrayTypeStyle"/>
         <!--<module name="FinalParameters"/>-->
-        <module name="TodoComment"/>
+        <module name="TodoComment">
+            <!-- allow any form of TODO comments if they have a link associated -->
+            <property name="format" value="(?i)^\s*TO[-_]?DO:?(?!.*https?:\/\/)"/>
+        </module>
         <module name="UpperEll"/>
 
         <!-- https://checkstyle.org/config_filters.html#SuppressionXpathFilter -->
