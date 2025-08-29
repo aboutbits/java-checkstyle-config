@@ -48,6 +48,10 @@ In your IDE go to `Settings` then search for "checkstyle".
 Add a new checkstyle configuration and select the `target/checkstyle-checker.xml` file.  
 Set the property `org.checkstyle.sun.suppressionfilter.config` to `checkstyle-suppressions.xml`
 
+## Build & Publish
+
+To build and publish the chart, visit the GitHub Actions page of the repository and trigger the workflow "Release Package" manually.
+
 ## Information
 
 About Bits is a company based in South Tyrol, Italy. You can find more information about us on [our website](https://aboutbits.it).
