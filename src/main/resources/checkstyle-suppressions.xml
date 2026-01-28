@@ -9,4 +9,5 @@
     <suppress checks="MethodName" files=".*[\\/]src[\\/](test|it)[\\/]"/>
     <suppress checks="VisibilityModifier" files=".*[\\/]src[\\/](test|it)[\\/]"/>
     <suppress checks="FileTabCharacter" files=".*[\\/]src[\\/](test|it)[\\/]"/>
+    <suppress checks="FileLength" files=".*[\\/]src[\\/](test|it)[\\/]"/>
 </suppressions>
