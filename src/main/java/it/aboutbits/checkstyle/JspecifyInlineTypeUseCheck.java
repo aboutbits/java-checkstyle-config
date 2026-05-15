@@ -4,17 +4,24 @@ import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@NullMarked
 public class JspecifyInlineTypeUseCheck extends AbstractCheck {
 
     public static final String MSG_KEY = "jspecify.inline.notInline";
 
-    private static final String JSPECIFY_PACKAGE = "org.jspecify.annotations";
+    private static final String JSPECIFY_PACKAGE = Nullable.class.getPackageName();
     private static final String JSPECIFY_PACKAGE_DOT = JSPECIFY_PACKAGE + ".";
-    private static final Set<String> TYPE_USE_ANNOTATIONS = Set.of("Nullable", "NonNull");
+    private static final Set<String> TYPE_USE_ANNOTATIONS = Set.of(
+            Nullable.class.getSimpleName(),
+            NonNull.class.getSimpleName()
+    );
 
     private Set<String> jspecifySimpleNamesInScope = new HashSet<>();
 

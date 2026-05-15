@@ -3,16 +3,24 @@ package it.aboutbits.checkstyle;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.NullUnmarked;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+@NullMarked
 public class JspecifyAnnotationOrderCheck extends AbstractCheck {
 
     public static final String MSG_KEY = "jspecify.order.notLast";
 
-    private Set<String> closeAnnotations = new LinkedHashSet<>(Set.of("NullMarked", "NullUnmarked"));
+    private Set<String> closeAnnotations = new LinkedHashSet<>(Set.of(
+            NullMarked.class.getSimpleName(),
+            NullUnmarked.class.getSimpleName()
+    ));
 
+    // Called by Checkstyle via reflection for <property name="closeAnnotations" value="..."/>
+    @SuppressWarnings("unused")
     public void setCloseAnnotations(String... names) {
         var next = new LinkedHashSet<String>();
         for (var n : names) {

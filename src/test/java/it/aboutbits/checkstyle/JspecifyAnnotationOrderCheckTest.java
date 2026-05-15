@@ -1,5 +1,6 @@
 package it.aboutbits.checkstyle;
 
+import org.jspecify.annotations.NullMarked;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@NullMarked
 class JspecifyAnnotationOrderCheckTest extends CheckTestSupport {
 
     private static final String BASE = "/it/aboutbits/checkstyle/jspecifyAnnotationOrder/";
@@ -22,15 +24,15 @@ class JspecifyAnnotationOrderCheckTest extends CheckTestSupport {
     void jspecifyAnnotationFollowedByOtherFailsAndHighlightsCloseAnnotation() throws Exception {
         var v = runCheck(JspecifyAnnotationOrderCheck.class, BASE + "BadInMiddle.java");
         assertEquals(1, v.size());
-        assertTrue(v.get(0).contains("NullMarked"), v.toString());
-        assertTrue(v.get(0).startsWith("6:"), "violation should be reported on the @NullMarked line: " + v);
+        assertTrue(v.getFirst().contains(NullMarked.class.getSimpleName()), v.toString());
+        assertTrue(v.getFirst().startsWith("6:"), "violation should be reported on the @NullMarked line: " + v);
     }
 
     @Test
     void jspecifyAnnotationAsFirstFailsAndHighlightsCloseAnnotation() throws Exception {
         var v = runCheck(JspecifyAnnotationOrderCheck.class, BASE + "BadFirst.java");
         assertEquals(1, v.size());
-        assertTrue(v.get(0).startsWith("5:"), "violation should be reported on the @NullMarked line: " + v);
+        assertTrue(v.getFirst().startsWith("5:"), "violation should be reported on the @NullMarked line: " + v);
     }
 
     @Test
@@ -48,7 +50,7 @@ class JspecifyAnnotationOrderCheckTest extends CheckTestSupport {
 
         var bad = runCheck(JspecifyAnnotationOrderCheck.class, BASE + "CustomCloseInMiddle.java", properties);
         assertEquals(1, bad.size());
-        assertTrue(bad.get(0).contains("Custom"), bad.toString());
+        assertTrue(bad.getFirst().contains("Custom"), bad.toString());
     }
 
     @Test

@@ -3,25 +3,33 @@ package it.aboutbits.checkstyle;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.NullUnmarked;
+import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 
+@NullMarked
 public class JspecifyMapStructMapperAnnotationCheck extends AbstractCheck {
 
     public static final String MSG_KEY = "jspecify.mapstruct.annotation.invalid";
 
     private String mapperAnnotationName = "Mapper";
     private String annotateWithAnnotationName = "AnnotateWith";
-    private String nullUnmarkedAnnotationName = "NullUnmarked";
+    private String nullUnmarkedAnnotationName = NullUnmarked.class.getSimpleName();
 
+    // The three setters below are called by Checkstyle via reflection for the corresponding <property .../> entries.
+    @SuppressWarnings("unused")
     public void setMapperAnnotationName(String name) {
         this.mapperAnnotationName = name;
     }
 
+    @SuppressWarnings("unused")
     public void setAnnotateWithAnnotationName(String name) {
         this.annotateWithAnnotationName = name;
     }
 
+    @SuppressWarnings("unused")
     public void setNullUnmarkedAnnotationName(String name) {
         this.nullUnmarkedAnnotationName = name;
     }
@@ -68,7 +76,7 @@ public class JspecifyMapStructMapperAnnotationCheck extends AbstractCheck {
             logInvalid(ast);
             return;
         }
-        var last = annotations.get(annotations.size() - 1);
+        var last = annotations.getLast();
         var secondLast = annotations.get(annotations.size() - 2);
         var lastOk = nullUnmarkedAnnotationName.equals(AnnotationNames.simpleName(last));
         var secondLastOk = annotateWithAnnotationName.equals(AnnotationNames.simpleName(secondLast))
@@ -97,7 +105,7 @@ public class JspecifyMapStructMapperAnnotationCheck extends AbstractCheck {
         return false;
     }
 
-    private static String memberValuePairClassLiteralName(DetailAST pair) {
+    private static @Nullable String memberValuePairClassLiteralName(DetailAST pair) {
         var ident = pair.findFirstToken(TokenTypes.IDENT);
         if (ident == null || !"value".equals(ident.getText())) {
             return null;
@@ -106,26 +114,14 @@ public class JspecifyMapStructMapperAnnotationCheck extends AbstractCheck {
         return expr == null ? null : classLiteralName(expr);
     }
 
-    private static String classLiteralName(DetailAST expr) {
+    private static @Nullable String classLiteralName(DetailAST expr) {
         var dot = expr.findFirstToken(TokenTypes.DOT);
         if (dot == null) {
             return null;
         }
-        var classLiteral = dot.findFirstToken(TokenTypes.LITERAL_CLASS);
-        if (classLiteral == null) {
+        if (dot.findFirstToken(TokenTypes.LITERAL_CLASS) == null) {
             return null;
         }
-        var ident = dot.findFirstToken(TokenTypes.IDENT);
-        if (ident != null) {
-            return ident.getText();
-        }
-        var nestedDot = dot.findFirstToken(TokenTypes.DOT);
-        if (nestedDot != null) {
-            var last = nestedDot.getLastChild();
-            if (last != null && last.getType() == TokenTypes.IDENT) {
-                return last.getText();
-            }
-        }
-        return null;
+        return AnnotationNames.lastIdentIn(dot);
     }
 }

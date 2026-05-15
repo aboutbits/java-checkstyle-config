@@ -1,5 +1,6 @@
 package it.aboutbits.checkstyle;
 
+import org.jspecify.annotations.NullMarked;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@NullMarked
 class JspecifyMapStructMapperAnnotationCheckTest extends CheckTestSupport {
 
     private static final String BASE = "/it/aboutbits/checkstyle/jspecifyMapStructMapperAnnotation/";
@@ -29,7 +31,7 @@ class JspecifyMapStructMapperAnnotationCheckTest extends CheckTestSupport {
     void swappedOrderFails() throws Exception {
         var v = runCheck(JspecifyMapStructMapperAnnotationCheck.class, BASE + "BadOrderSwapped.java");
         assertEquals(1, v.size());
-        assertTrue(v.get(0).contains("BadOrderSwapped"), v.toString());
+        assertTrue(v.getFirst().contains("BadOrderSwapped"), v.toString());
     }
 
     @Test
@@ -61,7 +63,7 @@ class JspecifyMapStructMapperAnnotationCheckTest extends CheckTestSupport {
 
         var bad = runCheck(JspecifyMapStructMapperAnnotationCheck.class, BASE + "CustomMapperBad.java", properties);
         assertEquals(1, bad.size());
-        assertTrue(bad.get(0).contains("CustomMapperBad"), bad.toString());
+        assertTrue(bad.getFirst().contains("CustomMapperBad"), bad.toString());
     }
 
     @Test
@@ -98,7 +100,7 @@ class JspecifyMapStructMapperAnnotationCheckTest extends CheckTestSupport {
     void abstractClassMapperWithSwappedOrderFails() throws Exception {
         var v = runCheck(JspecifyMapStructMapperAnnotationCheck.class, BASE + "BadAbstractMapperOrderSwapped.java");
         assertEquals(1, v.size());
-        assertTrue(v.get(0).contains("BadAbstractMapperOrderSwapped"), v.toString());
+        assertTrue(v.getFirst().contains("BadAbstractMapperOrderSwapped"), v.toString());
     }
 
     @Test

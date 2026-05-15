@@ -6,12 +6,15 @@ import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
 import com.puppycrawl.tools.checkstyle.api.AuditListener;
 
+import org.jspecify.annotations.NullMarked;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+@NullMarked
 public abstract class CheckTestSupport {
 
     protected List<String> runCheck(

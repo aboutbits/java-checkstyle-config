@@ -1,11 +1,13 @@
 package it.aboutbits.checkstyle;
 
+import org.jspecify.annotations.NullMarked;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@NullMarked
 class JspecifyInlineTypeUseCheckTest extends CheckTestSupport {
 
     private static final String BASE = "/it/aboutbits/checkstyle/jspecifyInlineTypeUse/";

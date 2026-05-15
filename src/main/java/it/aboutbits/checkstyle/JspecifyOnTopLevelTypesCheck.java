@@ -3,14 +3,20 @@ package it.aboutbits.checkstyle;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.NullUnmarked;
 
 import java.util.Set;
 
+@NullMarked
 public class JspecifyOnTopLevelTypesCheck extends AbstractCheck {
 
     public static final String MSG_KEY = "jspecify.toplevel.missing";
 
-    private static final Set<String> JSPECIFY_TYPE_ANNOTATIONS = Set.of("NullMarked", "NullUnmarked");
+    private static final Set<String> JSPECIFY_TYPE_ANNOTATIONS = Set.of(
+            NullMarked.class.getSimpleName(),
+            NullUnmarked.class.getSimpleName()
+    );
 
     @Override
     public int[] getDefaultTokens() {
