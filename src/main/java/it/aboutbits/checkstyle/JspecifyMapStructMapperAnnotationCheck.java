@@ -28,7 +28,7 @@ public class JspecifyMapStructMapperAnnotationCheck extends AbstractCheck {
 
     @Override
     public int[] getDefaultTokens() {
-        return new int[]{TokenTypes.INTERFACE_DEF};
+        return new int[]{TokenTypes.INTERFACE_DEF, TokenTypes.CLASS_DEF};
     }
 
     @Override
@@ -45,6 +45,9 @@ public class JspecifyMapStructMapperAnnotationCheck extends AbstractCheck {
     public void visitToken(DetailAST ast) {
         var modifiers = ast.findFirstToken(TokenTypes.MODIFIERS);
         if (modifiers == null) {
+            return;
+        }
+        if (ast.getType() == TokenTypes.CLASS_DEF && modifiers.findFirstToken(TokenTypes.ABSTRACT) == null) {
             return;
         }
         var annotations = new ArrayList<DetailAST>();

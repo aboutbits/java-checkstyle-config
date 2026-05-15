@@ -48,7 +48,7 @@ public class JspecifyAnnotationOrderCheck extends AbstractCheck {
             return;
         }
         DetailAST lastAnnotation = null;
-        var hasCloseAnnotation = false;
+        DetailAST firstCloseAnnotation = null;
         String firstCloseName = null;
         for (var child = modifiers.getFirstChild(); child != null; child = child.getNextSibling()) {
             if (child.getType() != TokenTypes.ANNOTATION) {
@@ -56,19 +56,17 @@ public class JspecifyAnnotationOrderCheck extends AbstractCheck {
             }
             var name = AnnotationNames.simpleName(child);
             lastAnnotation = child;
-            if (name != null && closeAnnotations.contains(name)) {
-                hasCloseAnnotation = true;
-                if (firstCloseName == null) {
-                    firstCloseName = name;
-                }
+            if (name != null && closeAnnotations.contains(name) && firstCloseAnnotation == null) {
+                firstCloseAnnotation = child;
+                firstCloseName = name;
             }
         }
-        if (!hasCloseAnnotation || lastAnnotation == null) {
+        if (firstCloseAnnotation == null || lastAnnotation == null) {
             return;
         }
         var lastName = AnnotationNames.simpleName(lastAnnotation);
         if (lastName == null || !closeAnnotations.contains(lastName)) {
-            log(lastAnnotation, MSG_KEY, firstCloseName);
+            log(firstCloseAnnotation, MSG_KEY, firstCloseName);
         }
     }
 }
