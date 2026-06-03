@@ -1,2 +1,9 @@
-.idea
-target
+.idea/*
+!/.idea/codeStyles
+
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+/.output.txt

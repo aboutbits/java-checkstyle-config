@@ -53,6 +53,10 @@
 
     <!-- https://checkstyle.org/config_filters.html#SuppressionFilter -->
     <module name="SuppressionFilter">
+        <property name="file" value="${config_loc}/checkstyle-suppressions-default.xml" default="checkstyle-suppressions-default.xml"/>
+        <property name="optional" value="true"/>
+    </module>
+    <module name="SuppressionFilter">
         <property name="file" value="${config_loc}/checkstyle-suppressions.xml" default="checkstyle-suppressions.xml"/>
         <property name="optional" value="true"/>
     </module>
@@ -157,6 +161,20 @@
         <!-- See https://checkstyle.org/config_modifiers.html -->
         <module name="ModifierOrder"/>
         <module name="RedundantModifier"/>
+
+        <!-- JSpecify enforcement (custom checks shipped in this jar) -->
+        <module name="it.aboutbits.checkstyle.JSpecifyOnTopLevelTypesCheck">
+            <property name="id" value="JspecifyOnTopLevelTypes"/>
+        </module>
+        <module name="it.aboutbits.checkstyle.JSpecifyAnnotationOrderCheck">
+            <property name="id" value="JspecifyAnnotationOrder"/>
+        </module>
+        <module name="it.aboutbits.checkstyle.JSpecifyInlineTypeUseCheck">
+            <property name="id" value="JspecifyInlineTypeUse"/>
+        </module>
+        <module name="it.aboutbits.checkstyle.JSpecifyMapStructMapperAnnotationCheck">
+            <property name="id" value="JspecifyMapStructMapperAnnotation"/>
+        </module>
 
         <!-- Checks for blocks. You know, those {}'s         -->
         <!-- See https://checkstyle.org/config_blocks.html -->
