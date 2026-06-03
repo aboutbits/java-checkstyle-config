@@ -60,7 +60,7 @@ class JSpecifyInlineTypeUseCheckTest extends CheckTestSupport {
     void nonJspecifyNullableImportedFromElsewhereIsIgnored() throws Exception {
         assertEquals(
                 List.of(),
-                runCheck(JSpecifyInlineTypeUseCheck.class, BASE + "NonJspecifyNullableAboveFieldIgnored.java")
+                runCheck(JSpecifyInlineTypeUseCheck.class, BASE + "NonJSpecifyNullableAboveFieldIgnored.java")
         );
     }
 
@@ -68,13 +68,13 @@ class JSpecifyInlineTypeUseCheckTest extends CheckTestSupport {
     void nonJspecifyFullyQualifiedNullableIsIgnored() throws Exception {
         assertEquals(
                 List.of(),
-                runCheck(JSpecifyInlineTypeUseCheck.class, BASE + "NonJspecifyFqnNullableAboveFieldIgnored.java")
+                runCheck(JSpecifyInlineTypeUseCheck.class, BASE + "NonJSpecifyFqnNullableAboveFieldIgnored.java")
         );
     }
 
     @Test
     void fullyQualifiedJspecifyNullableAboveFieldFails() throws Exception {
-        var v = runCheck(JSpecifyInlineTypeUseCheck.class, BASE + "JspecifyFqnAboveFieldFails.java");
+        var v = runCheck(JSpecifyInlineTypeUseCheck.class, BASE + "JSpecifyFqnAboveFieldFails.java");
         assertEquals(1, v.size(), v.toString());
     }
 }

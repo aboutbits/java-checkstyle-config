@@ -37,7 +37,7 @@ class JSpecifyAnnotationOrderCheckTest extends CheckTestSupport {
 
     @Test
     void noJspecifyAnnotationDoesNotFire() throws Exception {
-        var v = runCheck(JSpecifyAnnotationOrderCheck.class, BASE + "NoJspecify.java");
+        var v = runCheck(JSpecifyAnnotationOrderCheck.class, BASE + "NoJSpecify.java");
         assertEquals(List.of(), v);
     }
 
