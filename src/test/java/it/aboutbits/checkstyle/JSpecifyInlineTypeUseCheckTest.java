@@ -3,9 +3,7 @@ package it.aboutbits.checkstyle;
 import org.jspecify.annotations.NullMarked;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @NullMarked
 class JSpecifyInlineTypeUseCheckTest extends CheckTestSupport {
@@ -14,67 +12,61 @@ class JSpecifyInlineTypeUseCheckTest extends CheckTestSupport {
 
     @Test
     void inlineMethodReturnPasses() throws Exception {
-        assertEquals(List.of(), runCheck(JSpecifyInlineTypeUseCheck.class, BASE + "GoodInlineMethod.java"));
+        assertThat(runCheck(JSpecifyInlineTypeUseCheck.class, BASE + "GoodInlineMethod.java")).isEmpty();
     }
 
     @Test
     void inlineFieldPasses() throws Exception {
-        assertEquals(List.of(), runCheck(JSpecifyInlineTypeUseCheck.class, BASE + "GoodInlineField.java"));
+        assertThat(runCheck(JSpecifyInlineTypeUseCheck.class, BASE + "GoodInlineField.java")).isEmpty();
     }
 
     @Test
     void inlineParameterPasses() throws Exception {
-        assertEquals(List.of(), runCheck(JSpecifyInlineTypeUseCheck.class, BASE + "GoodInlineParameter.java"));
+        assertThat(runCheck(JSpecifyInlineTypeUseCheck.class, BASE + "GoodInlineParameter.java")).isEmpty();
     }
 
     @Test
     void inlineLocalPasses() throws Exception {
-        assertEquals(List.of(), runCheck(JSpecifyInlineTypeUseCheck.class, BASE + "GoodInlineLocal.java"));
+        assertThat(runCheck(JSpecifyInlineTypeUseCheck.class, BASE + "GoodInlineLocal.java")).isEmpty();
     }
 
     @Test
     void annotationOnLineAboveMethodFails() throws Exception {
         var v = runCheck(JSpecifyInlineTypeUseCheck.class, BASE + "BadAboveMethod.java");
-        assertEquals(1, v.size(), v.toString());
+        assertThat(v).hasSize(1);
     }
 
     @Test
     void annotationOnLineAboveFieldFails() throws Exception {
         var v = runCheck(JSpecifyInlineTypeUseCheck.class, BASE + "BadAboveField.java");
-        assertEquals(1, v.size(), v.toString());
+        assertThat(v).hasSize(1);
     }
 
     @Test
     void annotationOnLineAboveParameterFails() throws Exception {
         var v = runCheck(JSpecifyInlineTypeUseCheck.class, BASE + "BadAboveParameter.java");
-        assertEquals(1, v.size(), v.toString());
+        assertThat(v).hasSize(1);
     }
 
     @Test
     void annotationOnLineAboveLocalFails() throws Exception {
         var v = runCheck(JSpecifyInlineTypeUseCheck.class, BASE + "BadAboveLocal.java");
-        assertEquals(1, v.size(), v.toString());
+        assertThat(v).hasSize(1);
     }
 
     @Test
     void nonJspecifyNullableImportedFromElsewhereIsIgnored() throws Exception {
-        assertEquals(
-                List.of(),
-                runCheck(JSpecifyInlineTypeUseCheck.class, BASE + "NonJSpecifyNullableAboveFieldIgnored.java")
-        );
+        assertThat(runCheck(JSpecifyInlineTypeUseCheck.class, BASE + "NonJSpecifyNullableAboveFieldIgnored.java")).isEmpty();
     }
 
     @Test
     void nonJspecifyFullyQualifiedNullableIsIgnored() throws Exception {
-        assertEquals(
-                List.of(),
-                runCheck(JSpecifyInlineTypeUseCheck.class, BASE + "NonJSpecifyFqnNullableAboveFieldIgnored.java")
-        );
+        assertThat(runCheck(JSpecifyInlineTypeUseCheck.class, BASE + "NonJSpecifyFqnNullableAboveFieldIgnored.java")).isEmpty();
     }
 
     @Test
     void fullyQualifiedJspecifyNullableAboveFieldFails() throws Exception {
         var v = runCheck(JSpecifyInlineTypeUseCheck.class, BASE + "JSpecifyFqnAboveFieldFails.java");
-        assertEquals(1, v.size(), v.toString());
+        assertThat(v).hasSize(1);
     }
 }

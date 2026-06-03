@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @NullMarked
 class JSpecifyAnnotationOrderCheckTest extends CheckTestSupport {
@@ -17,28 +16,28 @@ class JSpecifyAnnotationOrderCheckTest extends CheckTestSupport {
     @Test
     void jspecifyAnnotationAsLastPasses() throws Exception {
         var v = runCheck(JSpecifyAnnotationOrderCheck.class, BASE + "GoodLast.java");
-        assertEquals(List.of(), v);
+        assertThat(v).isEmpty();
     }
 
     @Test
     void jspecifyAnnotationFollowedByOtherFailsAndHighlightsCloseAnnotation() throws Exception {
         var v = runCheck(JSpecifyAnnotationOrderCheck.class, BASE + "BadInMiddle.java");
-        assertEquals(1, v.size());
-        assertTrue(v.getFirst().contains(NullMarked.class.getSimpleName()), v.toString());
-        assertTrue(v.getFirst().startsWith("6:"), "violation should be reported on the @NullMarked line: " + v);
+        assertThat(v).hasSize(1);
+        assertThat(v.getFirst()).contains(NullMarked.class.getSimpleName());
+        assertThat(v.getFirst()).startsWith("6:");
     }
 
     @Test
     void jspecifyAnnotationAsFirstFailsAndHighlightsCloseAnnotation() throws Exception {
         var v = runCheck(JSpecifyAnnotationOrderCheck.class, BASE + "BadFirst.java");
-        assertEquals(1, v.size());
-        assertTrue(v.getFirst().startsWith("5:"), "violation should be reported on the @NullMarked line: " + v);
+        assertThat(v).hasSize(1);
+        assertThat(v.getFirst()).startsWith("5:");
     }
 
     @Test
     void noJspecifyAnnotationDoesNotFire() throws Exception {
         var v = runCheck(JSpecifyAnnotationOrderCheck.class, BASE + "NoJSpecify.java");
-        assertEquals(List.of(), v);
+        assertThat(v).isEmpty();
     }
 
     @Test
@@ -46,11 +45,11 @@ class JSpecifyAnnotationOrderCheckTest extends CheckTestSupport {
         var properties = Map.of("closeAnnotations", "Custom,AnotherClose");
 
         var ok = runCheck(JSpecifyAnnotationOrderCheck.class, BASE + "CustomCloseLast.java", properties);
-        assertEquals(List.of(), ok);
+        assertThat(ok).isEmpty();
 
         var bad = runCheck(JSpecifyAnnotationOrderCheck.class, BASE + "CustomCloseInMiddle.java", properties);
-        assertEquals(1, bad.size());
-        assertTrue(bad.getFirst().contains("Custom"), bad.toString());
+        assertThat(bad).hasSize(1);
+        assertThat(bad.getFirst()).contains("Custom");
     }
 
     @Test
@@ -60,6 +59,6 @@ class JSpecifyAnnotationOrderCheckTest extends CheckTestSupport {
                 BASE + "GoodLast.java",
                 Map.of("closeAnnotations", "  NullMarked , NullUnmarked  ")
         );
-        assertEquals(List.of(), v);
+        assertThat(v).isEmpty();
     }
 }
