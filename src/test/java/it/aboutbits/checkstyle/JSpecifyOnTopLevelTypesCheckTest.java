@@ -3,10 +3,7 @@ package it.aboutbits.checkstyle;
 import org.jspecify.annotations.NullMarked;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @NullMarked
 class JSpecifyOnTopLevelTypesCheckTest extends CheckTestSupport {
@@ -16,44 +13,44 @@ class JSpecifyOnTopLevelTypesCheckTest extends CheckTestSupport {
     @Test
     void classMarkedWithNullMarkedPasses() throws Exception {
         var v = runCheck(JSpecifyOnTopLevelTypesCheck.class, BASE + "GoodMarked.java");
-        assertEquals(List.of(), v);
+        assertThat(v).isEmpty();
     }
 
     @Test
     void classMarkedWithNullUnmarkedPasses() throws Exception {
         var v = runCheck(JSpecifyOnTopLevelTypesCheck.class, BASE + "GoodUnmarked.java");
-        assertEquals(List.of(), v);
+        assertThat(v).isEmpty();
     }
 
     @Test
     void fullyQualifiedJspecifyAnnotationPasses() throws Exception {
         var v = runCheck(JSpecifyOnTopLevelTypesCheck.class, BASE + "GoodFullyQualified.java");
-        assertEquals(List.of(), v);
+        assertThat(v).isEmpty();
     }
 
     @Test
     void classWithoutJspecifyAnnotationFails() throws Exception {
         var v = runCheck(JSpecifyOnTopLevelTypesCheck.class, BASE + "BadMissing.java");
-        assertEquals(1, v.size());
-        assertTrue(v.getFirst().contains("BadMissing"), v.toString());
+        assertThat(v).hasSize(1);
+        assertThat(v.getFirst()).contains("BadMissing");
     }
 
     @Test
     void annotationDeclarationIsExempt() throws Exception {
         var v = runCheck(JSpecifyOnTopLevelTypesCheck.class, BASE + "AnnotationDefExempt.java");
-        assertEquals(List.of(), v);
+        assertThat(v).isEmpty();
     }
 
     @Test
     void nestedClassIsNotChecked() throws Exception {
         var v = runCheck(JSpecifyOnTopLevelTypesCheck.class, BASE + "NestedClassOnly.java");
-        assertEquals(List.of(), v);
+        assertThat(v).isEmpty();
     }
 
     @Test
     void recordWithoutJspecifyFails() throws Exception {
         var v = runCheck(JSpecifyOnTopLevelTypesCheck.class, BASE + "BadRecord.java");
-        assertEquals(1, v.size());
-        assertTrue(v.getFirst().contains("BadRecord"), v.toString());
+        assertThat(v).hasSize(1);
+        assertThat(v.getFirst()).contains("BadRecord");
     }
 }
