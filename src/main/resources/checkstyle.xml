@@ -163,16 +163,16 @@
         <module name="RedundantModifier"/>
 
         <!-- JSpecify enforcement (custom checks shipped in this jar) -->
-        <module name="it.aboutbits.checkstyle.JspecifyOnTopLevelTypesCheck">
+        <module name="it.aboutbits.checkstyle.JSpecifyOnTopLevelTypesCheck">
             <property name="id" value="JspecifyOnTopLevelTypes"/>
         </module>
-        <module name="it.aboutbits.checkstyle.JspecifyAnnotationOrderCheck">
+        <module name="it.aboutbits.checkstyle.JSpecifyAnnotationOrderCheck">
             <property name="id" value="JspecifyAnnotationOrder"/>
         </module>
-        <module name="it.aboutbits.checkstyle.JspecifyInlineTypeUseCheck">
+        <module name="it.aboutbits.checkstyle.JSpecifyInlineTypeUseCheck">
             <property name="id" value="JspecifyInlineTypeUse"/>
         </module>
-        <module name="it.aboutbits.checkstyle.JspecifyMapStructMapperAnnotationCheck">
+        <module name="it.aboutbits.checkstyle.JSpecifyMapStructMapperAnnotationCheck">
             <property name="id" value="JspecifyMapStructMapperAnnotation"/>
         </module>
 

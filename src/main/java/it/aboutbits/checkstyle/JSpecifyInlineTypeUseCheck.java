@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @NullMarked
-public class JspecifyInlineTypeUseCheck extends AbstractCheck {
+public class JSpecifyInlineTypeUseCheck extends AbstractCheck {
 
     public static final String MSG_KEY = "jspecify.inline.notInline";
 

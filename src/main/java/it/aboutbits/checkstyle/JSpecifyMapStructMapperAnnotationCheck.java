@@ -10,7 +10,7 @@ import org.jspecify.annotations.Nullable;
 import java.util.ArrayList;
 
 @NullMarked
-public class JspecifyMapStructMapperAnnotationCheck extends AbstractCheck {
+public class JSpecifyMapStructMapperAnnotationCheck extends AbstractCheck {
 
     public static final String MSG_KEY = "jspecify.mapstruct.annotation.invalid";
 

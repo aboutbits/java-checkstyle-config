@@ -10,7 +10,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @NullMarked
-public class JspecifyAnnotationOrderCheck extends AbstractCheck {
+public class JSpecifyAnnotationOrderCheck extends AbstractCheck {
 
     public static final String MSG_KEY = "jspecify.order.notLast";
 

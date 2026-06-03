@@ -10,39 +10,39 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @NullMarked
-class JspecifyMapStructMapperAnnotationCheckTest extends CheckTestSupport {
+class JSpecifyMapStructMapperAnnotationCheckTest extends CheckTestSupport {
 
     private static final String BASE = "/it/aboutbits/checkstyle/jspecifyMapStructMapperAnnotation/";
 
     @Test
     void wellOrderedMapperPasses() throws Exception {
-        assertEquals(List.of(), runCheck(JspecifyMapStructMapperAnnotationCheck.class, BASE + "GoodMapper.java"));
+        assertEquals(List.of(), runCheck(JSpecifyMapStructMapperAnnotationCheck.class, BASE + "GoodMapper.java"));
     }
 
     @Test
     void mapperWithNamedValueArgumentPasses() throws Exception {
         assertEquals(
                 List.of(),
-                runCheck(JspecifyMapStructMapperAnnotationCheck.class, BASE + "GoodMapperNamedValue.java")
+                runCheck(JSpecifyMapStructMapperAnnotationCheck.class, BASE + "GoodMapperNamedValue.java")
         );
     }
 
     @Test
     void swappedOrderFails() throws Exception {
-        var v = runCheck(JspecifyMapStructMapperAnnotationCheck.class, BASE + "BadOrderSwapped.java");
+        var v = runCheck(JSpecifyMapStructMapperAnnotationCheck.class, BASE + "BadOrderSwapped.java");
         assertEquals(1, v.size());
         assertTrue(v.getFirst().contains("BadOrderSwapped"), v.toString());
     }
 
     @Test
     void missingAnnotateWithFails() throws Exception {
-        var v = runCheck(JspecifyMapStructMapperAnnotationCheck.class, BASE + "BadMissingAnnotateWith.java");
+        var v = runCheck(JSpecifyMapStructMapperAnnotationCheck.class, BASE + "BadMissingAnnotateWith.java");
         assertEquals(1, v.size());
     }
 
     @Test
     void annotateWithWrongClassLiteralFails() throws Exception {
-        var v = runCheck(JspecifyMapStructMapperAnnotationCheck.class, BASE + "BadWrongClassLiteral.java");
+        var v = runCheck(JSpecifyMapStructMapperAnnotationCheck.class, BASE + "BadWrongClassLiteral.java");
         assertEquals(1, v.size());
     }
 
@@ -50,7 +50,7 @@ class JspecifyMapStructMapperAnnotationCheckTest extends CheckTestSupport {
     void interfaceWithoutMapperIsIgnored() throws Exception {
         assertEquals(
                 List.of(),
-                runCheck(JspecifyMapStructMapperAnnotationCheck.class, BASE + "NonMapperInterfaceIgnored.java")
+                runCheck(JSpecifyMapStructMapperAnnotationCheck.class, BASE + "NonMapperInterfaceIgnored.java")
         );
     }
 
@@ -58,10 +58,10 @@ class JspecifyMapStructMapperAnnotationCheckTest extends CheckTestSupport {
     void customMapperAnnotationNameIsHonored() throws Exception {
         var properties = Map.of("mapperAnnotationName", "MyMapper");
 
-        var ok = runCheck(JspecifyMapStructMapperAnnotationCheck.class, BASE + "CustomMapperGood.java", properties);
+        var ok = runCheck(JSpecifyMapStructMapperAnnotationCheck.class, BASE + "CustomMapperGood.java", properties);
         assertEquals(List.of(), ok);
 
-        var bad = runCheck(JspecifyMapStructMapperAnnotationCheck.class, BASE + "CustomMapperBad.java", properties);
+        var bad = runCheck(JSpecifyMapStructMapperAnnotationCheck.class, BASE + "CustomMapperBad.java", properties);
         assertEquals(1, bad.size());
         assertTrue(bad.getFirst().contains("CustomMapperBad"), bad.toString());
     }
@@ -70,10 +70,10 @@ class JspecifyMapStructMapperAnnotationCheckTest extends CheckTestSupport {
     void customAnnotateWithAnnotationNameIsHonored() throws Exception {
         var properties = Map.of("annotateWithAnnotationName", "MyAnnotateWith");
 
-        var ok = runCheck(JspecifyMapStructMapperAnnotationCheck.class, BASE + "CustomAnnotateWithGood.java", properties);
+        var ok = runCheck(JSpecifyMapStructMapperAnnotationCheck.class, BASE + "CustomAnnotateWithGood.java", properties);
         assertEquals(List.of(), ok);
 
-        var bad = runCheck(JspecifyMapStructMapperAnnotationCheck.class, BASE + "GoodMapper.java", properties);
+        var bad = runCheck(JSpecifyMapStructMapperAnnotationCheck.class, BASE + "GoodMapper.java", properties);
         assertEquals(1, bad.size(), bad.toString());
     }
 
@@ -81,10 +81,10 @@ class JspecifyMapStructMapperAnnotationCheckTest extends CheckTestSupport {
     void customNullUnmarkedAnnotationNameIsHonored() throws Exception {
         var properties = Map.of("nullUnmarkedAnnotationName", "MyUnmarked");
 
-        var ok = runCheck(JspecifyMapStructMapperAnnotationCheck.class, BASE + "CustomNullUnmarkedGood.java", properties);
+        var ok = runCheck(JSpecifyMapStructMapperAnnotationCheck.class, BASE + "CustomNullUnmarkedGood.java", properties);
         assertEquals(List.of(), ok);
 
-        var bad = runCheck(JspecifyMapStructMapperAnnotationCheck.class, BASE + "GoodMapper.java", properties);
+        var bad = runCheck(JSpecifyMapStructMapperAnnotationCheck.class, BASE + "GoodMapper.java", properties);
         assertEquals(1, bad.size(), bad.toString());
     }
 
@@ -92,13 +92,13 @@ class JspecifyMapStructMapperAnnotationCheckTest extends CheckTestSupport {
     void wellOrderedAbstractClassMapperPasses() throws Exception {
         assertEquals(
                 List.of(),
-                runCheck(JspecifyMapStructMapperAnnotationCheck.class, BASE + "GoodAbstractMapper.java")
+                runCheck(JSpecifyMapStructMapperAnnotationCheck.class, BASE + "GoodAbstractMapper.java")
         );
     }
 
     @Test
     void abstractClassMapperWithSwappedOrderFails() throws Exception {
-        var v = runCheck(JspecifyMapStructMapperAnnotationCheck.class, BASE + "BadAbstractMapperOrderSwapped.java");
+        var v = runCheck(JSpecifyMapStructMapperAnnotationCheck.class, BASE + "BadAbstractMapperOrderSwapped.java");
         assertEquals(1, v.size());
         assertTrue(v.getFirst().contains("BadAbstractMapperOrderSwapped"), v.toString());
     }
@@ -107,7 +107,7 @@ class JspecifyMapStructMapperAnnotationCheckTest extends CheckTestSupport {
     void nonAbstractClassWithMapperAnnotationIsIgnored() throws Exception {
         assertEquals(
                 List.of(),
-                runCheck(JspecifyMapStructMapperAnnotationCheck.class, BASE + "NonAbstractClassWithMapperAnnotationIgnored.java")
+                runCheck(JSpecifyMapStructMapperAnnotationCheck.class, BASE + "NonAbstractClassWithMapperAnnotationIgnored.java")
         );
     }
 }

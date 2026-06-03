@@ -9,7 +9,7 @@ import org.jspecify.annotations.NullUnmarked;
 import java.util.Set;
 
 @NullMarked
-public class JspecifyOnTopLevelTypesCheck extends AbstractCheck {
+public class JSpecifyOnTopLevelTypesCheck extends AbstractCheck {
 
     public static final String MSG_KEY = "jspecify.toplevel.missing";
 

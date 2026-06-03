@@ -12,9 +12,9 @@
         <java.version>25</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <checkstyle.version>13.4.2</checkstyle.version>
-        <junit.version>6.0.3</junit.version>
+        <junit.version>6.1.0</junit.version>
         <errorprone.version>2.49.0</errorprone.version>
-        <nullaway.version>0.13.2</nullaway.version>
+        <nullaway.version>0.13.4</nullaway.version>
     </properties>
 
     <dependencies>
